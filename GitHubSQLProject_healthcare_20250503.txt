@@ -1,13 +1,12 @@
+-- The following is a list of SQl functions compiled based on a ficticious healthcare dataset, showcasing additional knowledge of functions like JOINs, COUNT, GROUP BY, ORDER BY, etc. --
 
--- Intermediate SQL Queries for Healthcare Dataset --
-
--- 1. Count of Patients by State
+-- 1. Count of patients by state
 SELECT State, COUNT(*) AS PatientCount
 FROM patients
 GROUP BY State
 ORDER BY PatientCount DESC;
 
--- 2. Patients with More Than One Appointment
+-- 2. Number of patients with more than one appointment
 SELECT PatientName, COUNT(*) AS AppointmentCount
 FROM appointments
 GROUP BY PatientName
@@ -20,19 +19,19 @@ FROM patients p
 JOIN prescriptions pr ON p.Name = pr.PatientName
 WHERE pr.Medication = 'Metformin';
 
--- 4. Average Weight by Chronic Condition
+-- 4. Average weight by chronic condition
 SELECT ChronicConditions, AVG(WeightKG) AS AvgWeight
 FROM patients
 GROUP BY ChronicConditions
 ORDER BY AvgWeight DESC;
 
--- 5. Most Common Departments Visited
+-- 5. the most common department that was visited by patients 
 SELECT Department, COUNT(*) AS VisitCount
 FROM appointments
 GROUP BY Department
 ORDER BY VisitCount DESC;
 
--- 6. Patients Without Any Prescriptions
+-- 6. patients that do not have any perscriptions
 SELECT p.Name
 FROM patients p
 LEFT JOIN prescriptions pr ON p.Name = pr.PatientName
