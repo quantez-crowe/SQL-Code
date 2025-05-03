@@ -6,7 +6,7 @@ SELECT * FROM customers WHERE city = 'New York';
 -- Get the total number of products in stock
 SELECT SUM(stock_quantity) AS total_stock FROM products;
 
--- Get all orders made by customer with ID 10
+-- Orders from customer where ID = 10
 SELECT * FROM orders WHERE customer_id = 10;
 
 
@@ -14,14 +14,14 @@ SELECT * FROM orders WHERE customer_id = 10;
 ------------------------------------------------------------------------------------------------------------------
 ---Knowledge of aggregate functions
 
--- Get total revenue from all orders
+-- Total revenue from all orders
 SELECT SUM(total_amount) AS total_revenue FROM orders;
 
--- Get average order amount
+-- Average order amount
 SELECT AVG(total_amount) AS avg_order_value FROM orders;
 
 
--- Count the number of customers by city
+-- Total number of customers, ordered by city
 SELECT city, COUNT(*) AS num_customers FROM customers GROUP BY city;
 
 
@@ -59,7 +59,7 @@ SELECT customer_id, SUM(total_amount) AS total_spent,
 FROM orders
 GROUP BY customer_id;
 
--- Calculate running total of orders
+-- Calculate running total of orders by creating new field
 SELECT order_id, order_date, total_amount,
        SUM(total_amount) OVER (ORDER BY order_date) AS running_total
 FROM orders;
