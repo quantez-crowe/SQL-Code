@@ -1,0 +1,40 @@
+
+-- Intermediate SQL Queries for Healthcare Dataset --
+
+-- 1. Count of Patients by State
+SELECT State, COUNT(*) AS PatientCount
+FROM patients
+GROUP BY State
+ORDER BY PatientCount DESC;
+
+-- 2. Patients with More Than One Appointment
+SELECT PatientName, COUNT(*) AS AppointmentCount
+FROM appointments
+GROUP BY PatientName
+HAVING COUNT(*) > 1
+ORDER BY AppointmentCount DESC;
+
+-- 3. Patients that were prescribedd 'Metformin'
+SELECT DISTINCT p.Name, p.City, p.State
+FROM patients p
+JOIN prescriptions pr ON p.Name = pr.PatientName
+WHERE pr.Medication = 'Metformin';
+
+-- 4. Average Weight by Chronic Condition
+SELECT ChronicConditions, AVG(WeightKG) AS AvgWeight
+FROM patients
+GROUP BY ChronicConditions
+ORDER BY AvgWeight DESC;
+
+-- 5. Most Common Departments Visited
+SELECT Department, COUNT(*) AS VisitCount
+FROM appointments
+GROUP BY Department
+ORDER BY VisitCount DESC;
+
+-- 6. Patients Without Any Prescriptions
+SELECT p.Name
+FROM patients p
+LEFT JOIN prescriptions pr ON p.Name = pr.PatientName
+WHERE pr.PatientName IS NULL;
+
